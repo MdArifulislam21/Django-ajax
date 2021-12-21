@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <div class="container">
+        <h1 class='text-center'>Django ajax Crud</h1>
+        <div class="row">
+            <div class="col-6 col-md-4">
+                <h3>Django Form</h3>
+                <form action='' id='formsubmit'>
+                    <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" name='name' placeholder='name' class="form-control" id="name" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email"  name='email' placeholder='email' class="form-control" id="email" aria-describedby="emailHelp">
+                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="mb-3">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="text" name='phone' placeholder='phone' class="form-control" id="phone" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                    <label for="address" class="form-label">Address</label>
+                    <input type="text" name='address' class="form-control" placeholder='address' id="address">
+                    </div>
+                    <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1" >Check me out</label>
+                    </div>
+                    <button type="submit"  class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <div class="col-6 col-md-8">
+                <h3 class="p-4">Django Form Data in table</h3>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Phone Number</th>
+                        <th scope="col">Address</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto@a.com</td>
+                        <td>01520424723</td>
+                        <td>mdo</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $('#formsubmit').submit(function(){
+
+            let user_name = $('input[name="name"]').val().trim();
+            
+            let user_email = $('input[name="email"]').val().trim();
+            let user_phone = $('input[name="phone"]').val().trim();
+            let user_address = $('input[name="address"]').val().trim();
+
+            if (user_name && user_email && user_phone && user_address){
+                $.ajax({
+                    url: '/create/',
+                    data: {
+                        'name':user_name,
+                        'email': user_email,
+                        'phone':user_phone,
+                        'address': user_address
+                    },
+                    dataType: 'json',
+                    success: function(data){
+                        console.log(data)
+                    }
+                })
+            }
+            else{
+                alert('please fillup all the field.')
+            }
+            $('#formsubmit').trigger('reset');
+            return false;
+        })
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+  </body>
+</html>
