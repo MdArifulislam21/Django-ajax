@@ -18,7 +18,7 @@ class UserCreate(View):
         phone = request.GET.get('phone')
         address = request.GET.get('address')
 
-        print(username, email, phone, address)
+        # print(username, email, phone, address)
         userobj = DajaxModel.objects.create(name=username, email=email, phone=phone, address=address)
 
         data = {
